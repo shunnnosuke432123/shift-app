@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>シフト編集</title>
+</head>
+<body>
+    <h1>シフト編集</h1>
+
+    <form th:action="@{'/shifts/' + ${shift.id} + '/edit'}" method="post">
+        <div>
+            <label>日付：</label>
+            <input type="text" name="date" th:value="${shift.date}">
+        </div>
+        <div>
+            <label>名前：</label>
+            <input type="text" name="name" th:value="${shift.name}">
+        </div>
+        <div>
+            <label>出勤時間：</label>
+            <input type="number" name="startTime" th:value="${shift.startTime}">
+        </div>
+        <div>
+            <label>退勤時間：</label>
+            <input type="number" name="endTime" th:value="${shift.endTime}">
+        </div>
+
+        <button type="submit">更新</button>
+    </form>
+
+    <p><a th:href="@{/shifts}">一覧に戻る</a></p>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<tr th:each="shift : ${shifts}">
+    <td th:text="${shift.id}">1</td>
+    <td th:text="${shift.date}">7/1</td>
+    <td th:text="${shift.name}">田中</td>
+    <td th:text="${shift.displayText}">9-18</td>
+    <td>
+        <a th:href="@{'/shifts/' + ${shift.id} + '/edit'}">編集</a>
+        <form th:action="@{'/shifts/' + ${shift.id} + '/delete'}" method="post">
+            <button type="submit">削除</button>
+        </form>
+    </td>
+</tr>
