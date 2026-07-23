@@ -1,12 +1,35 @@
-<tr th:each="shift : ${shifts}">
-    <td th:text="${shift.id}">1</td>
-    <td th:text="${shift.date}">7/1</td>
-    <td th:text="${shift.name}">田中</td>
-    <td th:text="${shift.displayText}">9-18</td>
-    <td>
-        <a th:href="@{'/shifts/' + ${shift.id} + '/edit'}">編集</a>
-        <form th:action="@{'/shifts/' + ${shift.id} + '/delete'}" method="post">
-            <button type="submit">削除</button>
-        </form>
-    </td>
-</tr>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>シフト一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>シフト一覧</h1>
+
+    <p><a th:href="@{/shifts/new}">新規登録</a></p>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>日付</th>
+            <th>名前</th>
+            <th>時間</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="shift : ${shifts}">
+            <td th:text="${shift.id}">1</td>
+            <td th:text="${shift.date}">7/1</td>
+            <td th:text="${shift.name}">田中</td>
+            <td th:text="${shift.displayText}">9-18</td>
+            <td>
+                <a th:href="@{'/shifts/' + ${shift.id} + '/edit'}">編集</a>
+                <form th:action="@{'/shifts/' + ${shift.id} + '/delete'}" method="post">
+                    <button type="submit">削除</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -17,6 +17,7 @@ Java のコンソールアプリとして作成したものを、Spring Boot で
 - H2 Database
 
 ## 起動方法
-
-- ./mvnw spring-boot:run
+```
+./mvnw spring-boot:run
+```
 - 起動後 http://localhost:8080/shifts にアクセス。
