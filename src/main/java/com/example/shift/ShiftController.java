@@ -58,7 +58,7 @@ public class ShiftController {
     	return "shift-edit";
     }
     
-    @PostMapping("shifts/{id}/edit")
+    @PostMapping("/shifts/{id}/edit")
     public String updateShift(
     		@PathVariable Long id,
     		@RequestParam String date,
@@ -75,6 +75,56 @@ public class ShiftController {
     	
     	return "redirect:/shifts";
     	
+    }
+    
+    @GetMapping("/shifts/month")
+    public String monthForm() {
+    	return "shift-month";
+    }
+    
+    @PostMapping("/shifts/month")
+    public String monthEdit(
+    	@RequestParam String name,
+    	@RequestParam int year,
+    	@RequestParam int month,
+    	Model model) {
+    	
+    	int days = java.time.YearMonth.of(year , month).lengthOfMonth();
+    	
+    	model.addAttribute("name", name);
+    	model.addAttribute("year", year);
+    	model.addAttribute("month", month);
+    	model.addAttribute("days", days);
+    	
+    	return "shift-month-edit";
+    	
+    }
+    
+    @PostMapping("/shifts/month/save")
+    public String monthSave(
+    	@RequestParam String name,
+    	@RequestParam int year,
+    	@RequestParam int month,
+    	@RequestParam(required = false) List<Integer> startTimes,
+    	@RequestParam(required = false) List<Integer> endTimes) {
+    	
+    	int days = java.time.YearMonth.of(year, month).lengthOfMonth();
+    	
+    	for(int i = 0; i < days; i++) {
+    		Integer start = startTimes.get(i);
+    		Integer end = endTimes.get(i);
+    		
+    		if(start == null || end == null) {
+    			continue;
+    		}
+    		
+    		int day = i + 1;
+    		String date = month + "/" + day;
+    		
+    		Shift shift = new Shift(date, name, start, end);
+    		repository.save(shift);
+    	}
+    	return "redirect:/shifts";
     }
     
     

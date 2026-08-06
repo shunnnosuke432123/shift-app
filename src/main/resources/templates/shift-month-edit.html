@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>月間シフト入力</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>
+        <span th:text="${name}">泉</span> ／
+        <span th:text="${year}">2026</span>年
+        <span th:text="${month}">8</span>月
+    </h1>
+
+    <form th:action="@{/shifts/month/save}" method="post">
+        <input type="hidden" name="name" th:value="${name}">
+        <input type="hidden" name="year" th:value="${year}">
+        <input type="hidden" name="month" th:value="${month}">
+
+        <!-- 前半：1〜15日 -->
+        <table class="month-table">
+            <tr>
+                <th th:each="d : ${#numbers.sequence(1, 15)}" th:text="${d}">1</th>
+            </tr>
+            <tr>
+                <td th:each="d : ${#numbers.sequence(1, 15)}">
+                    <input type="number" name="startTimes" class="cell">
+                </td>
+            </tr>
+            <tr>
+                <td th:each="d : ${#numbers.sequence(1, 15)}">
+                    <input type="number" name="endTimes" class="cell">
+                </td>
+            </tr>
+        </table>
+
+        <!-- 後半：16〜末日 -->
+        <table class="month-table">
+            <tr>
+                <th th:each="d : ${#numbers.sequence(16, days)}" th:text="${d}">16</th>
+            </tr>
+            <tr>
+                <td th:each="d : ${#numbers.sequence(16, days)}">
+                    <input type="number" name="startTimes" class="cell">
+                </td>
+            </tr>
+            <tr>
+                <td th:each="d : ${#numbers.sequence(16, days)}">
+                    <input type="number" name="endTimes" class="cell">
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit">登録</button>
+    </form>
+</body>
+</html>

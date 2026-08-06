@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>月間シフト登録</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>月間シフト登録</h1>
+
+    <form th:action="@{/shifts/month}" method="post">
+        <div>
+            <label>名前</label>
+            <input type="text" name="name" placeholder="泉">
+        </div>
+
+        <div>
+            <label>年</label>
+            <select name="year">
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+            </select>
+        </div>
+
+        <div>
+            <label>月</label>
+            <select name="month">
+                <option th:each="m : ${#numbers.sequence(1, 12)}"
+                        th:value="${m}" th:text="${m}">1</option>
+            </select>
+        </div>
+
+        <button type="submit">次へ</button>
+    </form>
+</body>
+</html>
