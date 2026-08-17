@@ -108,6 +108,10 @@ public class ShiftController {
     	@RequestParam(required = false) List<Integer> startTimes,
     	@RequestParam(required = false) List<Integer> endTimes) {
     	
+    	String datePrefix = month + "/";
+    	List<Shift> existing = repository.findByNameAndDateStartingWith(name, datePrefix);
+    	repository.deleteAll(existing);
+    	
     	int days = java.time.YearMonth.of(year, month).lengthOfMonth();
     	
     	for(int i = 0; i < days; i++) {
@@ -125,6 +129,37 @@ public class ShiftController {
     		repository.save(shift);
     	}
     	return "redirect:/shifts";
+    }
+    
+    @GetMapping("/shifts/view")
+    public String viewForm() {
+    	return "shift-view";
+    }
+    
+    @GetMapping("/shifts/view/result")
+    public String viewResult(
+    	@RequestParam String name,
+    	@RequestParam int year,
+    	@RequestParam int month,
+    	Model model) {
+    	String datePrefix = month + "/";
+    	List<Shift> shifts = repository.findByNameAndDateStartingWith(name, datePrefix);
+    	
+    	java.util.Map<String, Shift> shiftMap = new java.util.HashMap<>();
+    	for(Shift s : shifts) {
+    		shiftMap.put(s.getDate(), s);
+    	}
+    	
+    	int days = java.time.YearMonth.of(year, month).lengthOfMonth();
+    	
+    	model.addAttribute("shiftMap", shiftMap);
+    	model.addAttribute("days", days);
+    	model.addAttribute("shifts", shifts);
+    	model.addAttribute("name", name);
+    	model.addAttribute("year", year);
+    	model.addAttribute("month", month);
+    	
+    	return "shift-view-result";
     }
     
     

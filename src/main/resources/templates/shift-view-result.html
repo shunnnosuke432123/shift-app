@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>シフト表示</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>
+        <span th:text="${name}">泉</span> ／
+        <span th:text="${year}">2026</span>年
+        <span th:text="${month}">8</span>月
+    </h1>
+
+    <!-- 前半：1〜15日 -->
+    <table class="month-table">
+        <tr>
+            <th th:each="d : ${#numbers.sequence(1, 15)}" th:text="${d}">1</th>
+        </tr>
+        <tr>
+            <td th:each="d : ${#numbers.sequence(1, 15)}"
+                th:with="shift=${shiftMap.get(month + '/' + d)}">
+                <span th:if="${shift != null}" 
+					th:text="${shift.displayText}"
+					th:classappend="${shift.dayOff} ? 'day-off' : ''">21-31</span>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 後半：16〜末日 -->
+    <table class="month-table">
+        <tr>
+            <th th:each="d : ${#numbers.sequence(16, days)}" th:text="${d}">16</th>
+        </tr>
+        <tr>
+            <td th:each="d : ${#numbers.sequence(16, days)}"
+                th:with="shift=${shiftMap.get(month + '/' + d)}">
+                <span th:if="${shift != null}" 
+					th:text="${shift.displayText}"
+					th:classappend="${shift.dayOff} ? 'day-off' : ''">21-31</span>
+            </td>
+        </tr>
+    </table>
+
+    <p><a th:href="@{/shifts/view}">別の条件で表示</a></p>
+</body>
+</html>

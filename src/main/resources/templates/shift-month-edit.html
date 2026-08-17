@@ -24,11 +24,13 @@
             </tr>
             <tr>
                 <td th:each="d : ${#numbers.sequence(1, 15)}">
+					<input type="hidden" name="startTimes" value="0">
                     <input type="number" name="startTimes" class="cell">
                 </td>
             </tr>
             <tr>
                 <td th:each="d : ${#numbers.sequence(1, 15)}">
+					<input type="hidden" name="endTimes" value="0">
                     <input type="number" name="endTimes" class="cell">
                 </td>
             </tr>
@@ -41,11 +43,13 @@
             </tr>
             <tr>
                 <td th:each="d : ${#numbers.sequence(16, days)}">
+					<input type="hidden" name="startTimes" value="0">
                     <input type="number" name="startTimes" class="cell">
                 </td>
             </tr>
             <tr>
                 <td th:each="d : ${#numbers.sequence(16, days)}">
+					<input type="hidden" name="endTimes" value="0">
                     <input type="number" name="endTimes" class="cell">
                 </td>
             </tr>

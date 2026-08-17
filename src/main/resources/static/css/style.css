@@ -167,3 +167,14 @@ button[type="submit"]:hover {
     text-align: center;
     font-size: 13px;
 }
+
+.month-table td span {
+    display: inline-block;
+    width: 44px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.day-off {
+    color: var(--text-dim);
+}
